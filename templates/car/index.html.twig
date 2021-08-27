@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block body %}
+{# <pre>{{ dump(cars) }}</pre> #}
+<h2>List of cars for sell</h2>
+    <table class="table">
+    <thead class="thead-light">
+        <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Brand</th>
+        <th scope="col">Description</th>
+        <th scope="col">Value</th>
+        <th scope="col">Delete</th>
+        <th scope="col">Edit</th>
+        </tr>
+    </thead>
+    <tbody class='href_delete_car'>
+        {% for car in cars %}
+            <tr>
+                {# <th scope="row">{{ car.id}}</th> #}
+                <td>{{ car.id}}</td>
+                <td>{{ car.name}}</td>
+                <td>{{car.description}}</td>
+                <td>{{ car.value}}</td>
+                <td><a href="{{path("car.delete_car",{id: car.id })}}">X</a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+    
+{% endblock %}
