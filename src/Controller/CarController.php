@@ -107,4 +107,13 @@ class CarController extends AbstractController
             'id' => $car->getId()
         ]);
     }
+    /**
+     * @Route("/showind/{id}", name="showind")
+     */
+    public function showInd(Car $car){
+        // dump($car);
+        return $this->render('car/individual.html.twig', [ 
+            'car' => $car,
+         ]);
+    }
 }

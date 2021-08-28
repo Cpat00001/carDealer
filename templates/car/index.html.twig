@@ -22,11 +22,11 @@
             <tr>
                 {# <th scope="row">{{ car.id}}</th> #}
                 <td>{{ car.id}}</td>
-                <td>{{ car.name}}</td>
+                <td><a href="{{path("car.showind",{id: car.id })}}">{{car.name}}</a></td>
                 <td>{{car.description}}</td>
                 <td>{{ car.value}}</td>
                 <td><a href="{{path("car.delete_car",{id: car.id })}}">X</a></td>
-                <td><a href="{{ asset('uploads/cars/' ~ car.image) }}">View Car Image</a></td>
+                <td><a href="{{ asset('uploads/cars/' ~ car.image) }}">View Image</a></td>
             </tr>
         {% endfor %}
     </tbody>

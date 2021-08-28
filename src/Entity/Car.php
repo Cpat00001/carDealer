@@ -42,6 +42,11 @@ class Car
      */
     private $image;
 
+     /**
+     * @ORM\ManyToOne Column(type="string", length=255)
+     */
+    private $Category;
+
     public function getId(): ?int
     {
         return $this->id;

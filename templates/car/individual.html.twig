@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+    <h2>{{ car.name }}</h2>
+    {# {{ dump(car) }} #}
+    {% if not car.image %}
+        <p>Sorry no image for this car
+    {% else %}
+    <img src="{{asset('uploads/cars/'~ car.image)}}" alt="{{car.name}}">
+    {% endif %}
+</div>
+
+{% endblock %}
