@@ -12,6 +12,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\String\Slugger\SluggerInterface;
+
 /**
  * @Route("/car", name="car.")
  */
@@ -38,7 +42,7 @@ class CarController extends AbstractController
     /**
      * @Route("/create", name="create_car")
      */
-    public function create(Request $request):Response
+    public function create(Request $request , SluggerInterface $slugger):Response
     {   
         //fetch EntityManager via $this->getDoctrine();
         $entityManager = $this->getDoctrine()->getManager();
@@ -51,10 +55,23 @@ class CarController extends AbstractController
             //$form->getData() holds submitted data
             $car = $form->getData();
             // get submitted image
-            $image = $request->files->get('image')['image'];
+            $image = $form->get('image')->getData();
             //if image is submitted->save it in folder web application
             if($image){
-
+                $originalFileName = pathinfo($image->getClientOriginalName(),PATHINFO_FILENAME);
+                 // this is needed to safely include the file name as part of the URL
+                 $safeFilename = $slugger->slug($originalFileName);
+                 $newFilename = $safeFilename.'-'.uniqid().'.'.$image->guessExtension(); 
+                //move the file to the directory where image is stored
+                try{
+                    $image->move($this->getParameter('images_directory'),
+                    $newFilename
+                );
+                }catch ( FileException $e){
+                    dd($e);
+                }
+                //update the 'theImage' property to store image file name instead of its content
+                $car->setImage($newFilename); 
             }
             //tell doctrine you want to eventaully save object
             $entityManager->persist($car);
