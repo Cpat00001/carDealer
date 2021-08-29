@@ -43,7 +43,7 @@ class Car
     private $image;
 
      /**
-     * @ORM\ManyToOne Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity = "App\Entity\Category", inversedBy="car")
      */
     private $Category;
 
@@ -108,6 +108,18 @@ class Car
     public function setImage(string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->Category;
+    }
+
+    public function setCategory(?Category $Category): self
+    {
+        $this->Category = $Category;
 
         return $this;
     }

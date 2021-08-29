@@ -2,13 +2,15 @@
 
 namespace App\Form;
 
-
 use App\Entity\Car;
+use App\Entity\Category;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
 
 class CarType extends AbstractType
 {
@@ -18,6 +20,7 @@ class CarType extends AbstractType
             ->add('name')
             ->add('image', FileType::class, ['label' => 'Add Car Image', 'mapped' => false])
             ->add('description')
+            ->add('category',EntityType::class,['class' => Category::class])
             ->add('Price')
             ->add('Value')
             ->add('AddNewCar', SubmitType::class)

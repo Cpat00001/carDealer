@@ -11,6 +11,7 @@
         <th scope="col">Id</th>
         <th scope="col">Brand</th>
         <th scope="col">Description</th>
+        <th scope="col">Category</th>
         <th scope="col">Value</th>
         <th scope="col">Delete</th>
         <th scope="col">Edit</th>
@@ -24,6 +25,7 @@
                 <td>{{ car.id}}</td>
                 <td><a href="{{path("car.showind",{id: car.id })}}">{{car.name}}</a></td>
                 <td>{{car.description}}</td>
+                <td>{{car.category}}</td>
                 <td>{{ car.value}}</td>
                 <td><a href="{{path("car.delete_car",{id: car.id })}}">X</a></td>
                 <td><a href="{{ asset('uploads/cars/' ~ car.image) }}">View Image</a></td>
