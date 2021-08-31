@@ -42,6 +42,9 @@
                 {% endif %}
                 {# not logineed in user roles: IS_AUTHENTICATED_ANONYMOUSLY #}
                 <li class="nav-item">
+                    <a class="nav-link" href="{{path("lucky_list")}}">Example Offer</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{path("app_login")}}">Login</a>
                 </li>
                 </ul>

@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello LuckyListController!{% endblock %}
+
+{% block body %}
+<div class="example-wrapper">
+    {# {{ dump(cars) }} #}
+{# <h5>{{random_one.name}}</h5> #}
+    <h2>{{ page_name }}</h2>
+
+    {# show two random products #}
+    <div class="container">
+        <div class="row mt-2 mb-2">
+            <div class="col-sm">
+            <div>
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="{{asset('uploads/cars/' ~ random_one.image)}}" alt="{{random_one.name}}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{random_one.name}}</h5>
+                        <p class="card-text">{{random_one.description}}</p>
+                        <a href="#" class="btn btn-primary">Read more</a>
+                    </div>
+                </div>
+            </div>
+            </div>
+            {# second column in row #}
+            <div class="col-sm">
+            <div>
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="{{asset('uploads/cars/' ~ random_two.image)}}" alt="{{random_two.name}}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{random_two.name}}</h5>
+                        <p class="card-text">{{random_two.description}}</p>
+                        <a href="#" class="btn btn-primary">Read more</a>
+                    </div>
+                </div>
+            </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    <h5>Below All Products you can find and buy in our dealership offer.</h5>
+    
+    {% if cars %}
+    <ul>
+        {% for car in cars %}
+            <div class="card mb-2" style="width: 18rem;">
+                <img class="card-img-top" src="{{asset('uploads/cars/' ~ car.image)}}" alt="{{ car.name}}">
+                <div class="card-body">
+                    <h5 class="card-title">{{car.name}}</h5>
+                    <p>Price: {{ car.price }}</p>
+                    <p>Category: {{car.category}}</p>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+                <div class="card-body">
+                    <a href="#" class="card-link">{{car.name}}</a>
+                </div>
+            </div>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+{% endblock %}
