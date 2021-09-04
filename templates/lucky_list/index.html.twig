@@ -40,10 +40,11 @@
         </div>
     </div>
 
-    
 
+<div class="mb-5 mt-5 bg-dark p-2" style="color:white;font-weight:900;">
     <h5>Below All Products you can find and buy in our dealership offer.</h5>
-    
+</div>
+
     {% if cars %}
     <ul>
         {% for car in cars %}
@@ -53,10 +54,20 @@
                     <h5 class="card-title">{{car.name}}</h5>
                     <p>Price: {{ car.price }}</p>
                     <p>Category: {{car.category}}</p>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="card-text">{{ car.description}}</p>
                 </div>
                 <div class="card-body">
-                    <a href="#" class="card-link">{{car.name}}</a>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <a href="#" class="card-link">{{car.name}}</a>
+                        </div>
+                        <div class="col-sm-12 mt-2">
+                            {# {{ dump(car.id) }} #}
+                            <a href="{{path('zamowiono',{id: car.id})}}">
+                                <button type="button" class="btn btn-outline-success">Buy Now</button>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         {% endfor %}
