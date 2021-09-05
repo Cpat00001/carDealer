@@ -5,8 +5,10 @@ namespace App\Controller;
 use Doctrine\ORM\EntityManagerInterface;
 
 use App\Entity\Car;
-use App\Entity\Zamowienie;
 use App\Entity\User;
+use App\Entity\Zamowienie;
+
+use App\Repository\ZamowienieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,29 +26,32 @@ class ZamowienieController extends AbstractController
     }
    
      /**
-     * @Route("/zamowiono/{id}", name="zamowiono")
+     * @Route("/zamawiac/{id}", name="zamawiac")
      */
-    public function zamowienie(Car $car, User $user , Zamowienie $zamowienie){
+    public function zamawiac(Car $car): Response
+    { 
         //instantiate car / user / zamowienie
         $zamowienie = new Zamowienie();
-        $car = new Car();
-        $user = new User();
-         // you can fetch the EntityManager via $this->getDoctrine()
+       // you can fetch the EntityManager via $this->getDoctrine()
          $entityManager = $this->getDoctrine()->getManager();
         //pass data using functions name fromEntity->Zamowienie.php 
-        $zamowienie->setManufacturer("Polonez");
+        $zamowienie->setManufacturer($car->getName());
+        // $zamowienie->setPrice($car->getPrice());
         $zamowienie->setPrice($car->getPrice());
+        // $zamowienie->setNumerID($car->getId());
         $zamowienie->setNumerID($car->getId());
-        $zamowienie->setUsername($user->getUserIdentifier());
+        // $zamowienie->setUsername($user->getUserIdentifier());
+        $zamowienie->setUsername("tymczosowy");
         $zamowienie->setStatus('reserverd');
 
         //insert record to zamowienie DB Table
         // tell Doctrine you want to (eventually) save the Product (no queries yet)
         $entityManager->persist($zamowienie);
         $entityManager->flush();
-        //redirect to list of cars,after clicking Order(button)
-        return $this->redirectToRoute('car.showall');
         //show flash message
-        $this->addFlash('confirmation', $zamowienie->getNumerID() . 'Your order has been placed');
+        $this->addFlash('confirmation', ' Car with ID nr:  ' . $zamowienie->getNumerID() . 'has been added.');
+        //redirect to list of cars,after clicking Order(button)
+        return $this->redirectToRoute('lucky_list');
+        
     }
 }

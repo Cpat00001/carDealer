@@ -3,6 +3,13 @@
 {% block title %}Hello LuckyListController!{% endblock %}
 
 {% block body %}
+{# display confirmation message #}
+{% for message in app.flashes('confirmation')%}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+{% endfor %}
+
 <div class="example-wrapper">
     {# {{ dump(cars) }} #}
 {# <h5>{{random_one.name}}</h5> #}
@@ -63,7 +70,7 @@
                         </div>
                         <div class="col-sm-12 mt-2">
                             {# {{ dump(car.id) }} #}
-                            <a href="{{path('zamowiono',{id: car.id})}}">
+                            <a href="{{path('zamawiac',{id: car.id})}}">
                                 <button type="button" class="btn btn-outline-success">Buy Now</button>
                             </a>
                         </div>
