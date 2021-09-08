@@ -4,7 +4,52 @@
 
 {% block body %}
 
-    <div>Zamowienie Controller -> tutaj bedzie lista zamowionych pojazdow i i ch status</div>
+    <div>Lista zamowionych pojazdow i i ch status</div>
+    
+    <table class="table table-bordered mt-4">
+        <thead class="thead-dark">
+            <tr>
+                <th>Manufacturer</th>
+                <th>Product_ID</th>
+                <th>Price</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% set sum = 0 %}
+            {% for item in zamowienie %}
+            {% set sum = sum + item.price %}
+            <tr>
+                <td>{{ item.manufacturer }}</td>
+                <td>{{ item.NumerID }}</td>
+                <td>{{ item.price }}</td>
+                {# <td>{{ item.status }}</td> #}
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ item.status }}
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="{{path('update', {id:item.id , status:'reserved'})}}">reserved</a></li>
+                            <li><a class="dropdown-item" href="{{path('update', {id:item.id , status:'proceeded'})}}">proceeded</a></li>
+                            <li><a class="dropdown-item" href="{{path('update', {id:item.id, status:'closed'})}}">closed</a></li>
+                        </ul>
+                    </div>
+                </td>
+
+
+            </tr>
+            {% endfor %}
+            {# total amount to pay #}
+            <tr  class="table-active">
+                <td><b>Total</b></td>
+                <td></td>
+                <td><b> £ {{ sum }}</b></td>
+                <td></td>
+            </tr>
+        </tbody>
+        {# table body #}
+    </table>
 
 {% endblock %}
 

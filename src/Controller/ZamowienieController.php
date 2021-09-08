@@ -18,10 +18,13 @@ class ZamowienieController extends AbstractController
     /**
      * @Route("/zamowienie", name="zamowienie")
      */
-    public function index(): Response
+    public function index(ZamowienieRepository $zamowienieRepository): Response
     {
+        $zamowienie = $zamowienieRepository->findAll();
+        // var_dump($zamowienie);
+
         return $this->render('zamowienie/index.html.twig', [
-            'controller_name' => 'ZamowienieController',
+            'zamowienie' =>  $zamowienie,
         ]);
     }
    
@@ -30,6 +33,7 @@ class ZamowienieController extends AbstractController
      */
     public function zamawiac(Car $car): Response
     { 
+        //check whether user is authenticated or not and insert into DB,who ordered a car
         //instantiate car / user / zamowienie
         $zamowienie = new Zamowienie();
        // you can fetch the EntityManager via $this->getDoctrine()
@@ -53,5 +57,20 @@ class ZamowienieController extends AbstractController
         //redirect to list of cars,after clicking Order(button)
         return $this->redirectToRoute('lucky_list');
         
+    }
+     /**
+     * @Route("/update/{id}/{status}", name="update")
+     */
+    public function update_status(int $id, string $status)
+    {   
+        //call entity manager->connect to DB
+        $entityManager = $this->getDoctrine()->getManager();
+        //search for record in DB Table based on given ID from table with zamowienie status
+        // find product and change status by given from table(dropdown table status)
+        $product = $entityManager->getRepository(Zamowienie::class)->find($id);
+        $product->setStatus($status);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('zamowienie');
     }
 }
