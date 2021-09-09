@@ -73,4 +73,16 @@ class ZamowienieController extends AbstractController
 
         return $this->redirectToRoute('zamowienie');
     }
+      /**
+     * @Route("/remove/{id}", name="remove")
+     */
+    public function remove(int $id){
+        $entityManager = $this->getDoctrine()->getManager();
+        $product = $entityManager->getRepository(Zamowienie::class)->find($id);
+        //remove element/product from DB Table
+        $entityManager->remove($product);
+        $entityManager->flush();
+        // redirect
+        return $this->redirectToRoute('zamowienie');
+    }
 }

@@ -39,3 +39,4 @@ security:
     - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/register, roles: ROLE_USER }
     - { path: ^/car, roles: ROLE_USER }
+    - { path: ^/zamowienie, roles: ROLE_USER }

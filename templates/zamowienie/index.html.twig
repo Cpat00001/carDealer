@@ -36,8 +36,13 @@
                         </ul>
                     </div>
                 </td>
-
-
+                <td>
+                    {% if item.status == 'closed' %}
+                        <a href="{{path('remove', {id: item.id})}}"><button type="button" class="btn btn-outline-danger">Remove</button></a>
+                    {% else %}
+                        <a href="{{path('remove', {id: item.id})}}"><button type="button" class="btn btn-outline-danger" disabled>Remove</button></a>
+                    {% endif%}
+                </td>
             </tr>
             {% endfor %}
             {# total amount to pay #}
@@ -45,6 +50,7 @@
                 <td><b>Total</b></td>
                 <td></td>
                 <td><b> £ {{ sum }}</b></td>
+                <td></td>
                 <td></td>
             </tr>
         </tbody>

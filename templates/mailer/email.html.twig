@@ -1,0 +1,21 @@
+{% apply inline_css %}
+
+    <style>
+        h2{
+            color: green;
+        }
+        p{
+            color: rgb(66, 81, 245);
+        }
+    </style>
+    <h2>Confirmation email from {{ dealer }}</h2>
+    <h3>Hello User</h3>
+
+    <div class="emailBody">
+        <p>{{ text }}</p>
+    </div>
+    
+
+{% endapply %}
+
+
